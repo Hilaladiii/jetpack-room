@@ -18,18 +18,42 @@ package com.example.inventory.data
 
 import kotlinx.coroutines.flow.Flow
 
-class OfflineItemsRepository(private val itemDao: ItemDao) : ItemsRepository{
+/**
+ * OfflineItemsRepository adalah kelas yang mengimplementasikan interface ItemsRepository
+ * untuk berinteraksi dengan data secara offline, menggunakan akses ke ItemDao untuk melakukan
+ * operasi penyimpanan dan pengambilan data dari database lokal Room.
+ */
+class OfflineItemsRepository(private val itemDao: ItemDao) : ItemsRepository {
 
+    /**
+     * Mengambil data dari semua item yang ada dalam database secara real-time.
+     * Fungsi ini akan mengakses getAllItems() dari ItemDao dengan return value Flow<List<Item>>
+     * berisi seluruh item dalam database.
+     */
     override fun getAllItemsStream(): Flow<List<Item>> = itemDao.getAllItems()
 
+    /**
+     * Mengambil data satu item berdasarkan parameter ID.
+     * Mengakses getItem() dari ItemDao yang memiliki return value Flow<Item?>
+     * jika data tidak ada maka return valuenya null
+     */
     override fun getItemStream(id: Int): Flow<Item?> = itemDao.getItem(id)
 
-    override suspend fun insertItem(item: Item)  = itemDao.insert(item)
+    /**
+     * Memasukkan item baru ke dalam database secara asinkron menggunakan fungsi insert()
+     * ItemDao.
+     */
+    override suspend fun insertItem(item: Item) = itemDao.insert(item)
 
-    override suspend fun deleteItem(item: Item)  = itemDao.delete(item)
+    /**
+     * Menghapus item dari database secara asinkron menggunakan delete()
+     * dari ItemDao.
+     */
+    override suspend fun deleteItem(item: Item) = itemDao.delete(item)
 
-    override suspend fun updateItem(item: Item)  = itemDao.update(item)
-
-
-
+    /**
+     * Memperbarui data item yang ada di database secara asinkron menggunakan update()
+     * dari ItemDao.
+     */
+    override suspend fun updateItem(item: Item) = itemDao.update(item)
 }

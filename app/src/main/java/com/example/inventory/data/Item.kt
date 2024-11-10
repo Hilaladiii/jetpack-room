@@ -22,6 +22,16 @@ import androidx.room.PrimaryKey
 
 /**
  * Entity data class represents a single row in the database.
+ * Pada kode ini akan membuat entitas atau sebuah tabel items dengan beberapa field yaitu
+ * 1. id dengan tipe data int dengan nilai awalya adalah 0 sebagai primary key ditandai dengan anotasi @PrimaryKey
+ * dan akan bertambah setiap ada penambahan data autoGenerate(auto increment)
+ * 2. name dengan tipe data string
+ * 3. price dengan tipe data double
+ * 4. quantity dengan tipe data int
+ *
+ * anotasi @Entity yang berfungsi sebagai penanda kalau kelas tersebut akan menjadi kelas entity database room
+ * didalam anotasi @Entity terdapat paramteter tableName untuk memberikan nama dari tabelnya, jika tidak diisi
+ * maka nama akan sesuai dengan nama kelasnya
  */
 @Entity(tableName="items")
 data class Item(

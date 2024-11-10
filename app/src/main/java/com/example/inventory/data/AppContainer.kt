@@ -19,18 +19,24 @@ package com.example.inventory.data
 import android.content.Context
 
 /**
- * App container for Dependency injection.
+ * AppContainer adalah interface yang memiliki fungsi sebagai kontainer aplikasi untuk
+ * Dependency Injection.
  */
 interface AppContainer {
     val itemsRepository: ItemsRepository
 }
 
 /**
- * [AppContainer] implementation that provides instance of [OfflineItemsRepository]
+ * AppDataContainer adalah implementasi dari [AppContainer] yang berfungsi menyediakan instance
+ * dari [OfflineItemsRepository]. Kelas ini digunakan untuk melakukan Dependency Injection pada
+ * `itemsRepository`
  */
 class AppDataContainer(private val context: Context) : AppContainer {
     /**
-     * Implementation for [ItemsRepository]
+     * val ini adalah implement dari [ItemsRepository] yang secara otomatis diinisialisasi menggunakan
+     * properti lazy, instance dari OfflineItemsRepository hanya dibuat ketika pertama kali diakses.
+     * Pada inisialisasi itemsRepository akan menggunakan InventoryDatabase untuk mendapatkan itemDao,
+     * yang menghubungkan repository dengan database Room.
      */
     override val itemsRepository: ItemsRepository by lazy {
         OfflineItemsRepository(InventoryDatabase.getDatabase(context).itemDao())

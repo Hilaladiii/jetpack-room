@@ -78,9 +78,10 @@ fun ItemEntryScreen(
         ItemEntryBody(
             itemUiState = viewModel.itemUiState,
             onItemValueChange = viewModel::updateUiState,
+            // Menggunakan `coroutineScope.launch` agar fungsi `saveItem` dapat dijalankan asinkron
             onSaveClick = { coroutineScope.launch {
-                viewModel.saveItem()
-                navigateBack()
+                viewModel.saveItem() // menyimpan item ke dalam database
+                navigateBack() //redirect ke halaman sebelumnya
             } },
             modifier = Modifier
                 .padding(

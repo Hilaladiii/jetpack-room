@@ -44,8 +44,17 @@ class ItemEntryViewModel(private val itemsRepository: ItemsRepository) : ViewMod
             ItemUiState(itemDetails = itemDetails, isEntryValid = validateInput(itemDetails))
     }
 
+    /**
+     * Fungsi `saveItem` berfungsi untuk menyimpan item ke dalam database jika input yang diberikan valid.
+     * Fungsi ini merupakan `suspend` sehingga dapat dijalankan secara asinkron.
+     */
     suspend fun saveItem(){
+        // Memeriksa apakah data yang dimasukkan valid dengan memanggil fungsi `validateInput`.
+        // Jika data tidak valid, fungsi ini akan berhenti di sini dan tidak menyimpan item.
         if(validateInput()){
+            // Jika data valid item akan disimpan ke dalam database.
+            // Mengonversi itemUiState.itemDetails menjadi objek Item yang dibutuhkan oleh repository
+            // menggunakan fungsi ekstensi toItem().
             itemsRepository.insertItem(itemUiState.itemDetails.toItem())
         }
     }

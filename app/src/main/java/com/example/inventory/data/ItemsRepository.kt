@@ -18,8 +18,11 @@ package com.example.inventory.data
 
 import kotlinx.coroutines.flow.Flow
 
+
 /**
- * Repository that provides insert, update, delete, and retrieve of [Item] from a given data source.
+ * ItemsRepository adalah antarmuka (interface) yang fungsinya memberikan fungsi-fungsi
+ * untuk mengelola data [Item], termasuk operasi insert, update, delete,
+ * dan read data dari sumber data(data source).
  */
 interface ItemsRepository{
 
